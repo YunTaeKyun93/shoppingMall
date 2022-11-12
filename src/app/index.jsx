@@ -47,7 +47,6 @@ const App = () => {
         <Route path="my-page" element={<MyPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
         <Route path="sign-in" element={<SignInPage />} />
-
         <Route path="admin" element={<AdminMainPage />} />
         <Route
           path="admin/manage-coupons"

@@ -1,11 +1,9 @@
 import React, {useState} from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import useUser from "../services/user";
 import useCreateAccount from '../services/create-account';
 import {useNavigate} from 'react-router-dom';
 
 const SignUP = () => {
-  // const user = useUser();
   const navigate = useNavigate();
   const createUser = useCreateAccount();
 

@@ -6,11 +6,11 @@ import useAuth from "../services/auth";
 const Header = () => {
   const navigate = useNavigate();
   const auth = useAuth();
-
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand onClick={() => navigate("/")}>Shopping Mall</Navbar.Brand>
+
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -21,10 +21,9 @@ const Header = () => {
             {auth.isLoggedIn && (
               <>
                 <Nav.Link onClick={() => navigate("/my-page")}>MyPage</Nav.Link>
-                <Nav.Link onClick={() => navigate("/")}>로그아웃</Nav.Link>
+                <Nav.Link onClick={() => auth.logout()}>로그아웃</Nav.Link>
               </>
             )}
-
             <Nav.Link onClick={() => navigate("/sign-up")}>Sign Up</Nav.Link>
             <Nav.Link onClick={() => navigate("/sign-in")}>Sign In</Nav.Link>
           </Nav>
