@@ -1,21 +1,37 @@
-import React from "react";
+import React, {useState} from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import useUser from "../services/user";
+import useCreateAccount from '../services/create-account';
+import {useNavigate} from 'react-router-dom';
 
 const SignUP = () => {
-  const user = useUser();
+  // const user = useUser();
+  const navigate = useNavigate();
+  const createUser = useCreateAccount();
+
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    createUser({email, name, password});
+    alert('회원가입이 완료되었습니다');
+    navigate('/');
+  };
 
   return (
     <Container className="mt-5">
-      <Form>
+      <Form >
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
             onChange={(event) => {
-              user.actions.setEmail(event.target.value);
+              setEmail(event.target.value);
             }}
+            value={email}
           />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
@@ -26,7 +42,10 @@ const SignUP = () => {
           <Form.Control
             type="text"
             placeholder="Enter Your Name"
-            onChange={(event) => user.actions.setName(event.target.value)}
+            onChange={(event) => {
+              setName(event.target.value);
+            }}
+            value={name}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -34,13 +53,16 @@ const SignUP = () => {
           <Form.Control
             type="password"
             placeholder="Password"
-            onChange={(event) => user.actions.setPassword(event.target.value)}
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+            value={password}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" onClick={onSubmit} >
           Submit
         </Button>
       </Form>
@@ -75,3 +97,33 @@ export default SignUP;
 // };
 
 // export default SignUP;
+
+
+/*
+
+
+A                           B
+**************************************
+                  |
+                  |
+                  |
+                  |
+                  |
+                  |         
+                  |
+                  |
+                  |            
+                  |
+                  |          
+                  |
+***************************************
+
+const loadProducts = useLoadProducts();
+
+const [products, setProducts] = useState([]);
+
+useEffect(() => {
+  // 로딩, setProducts를 호출
+}, []);
+
+*/

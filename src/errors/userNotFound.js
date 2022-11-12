@@ -1,0 +1,6 @@
+
+
+
+class userNotFound extends Error (){
+    
+}
