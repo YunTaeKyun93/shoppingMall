@@ -50,7 +50,6 @@ const AuthProvider = ({ contexts, children }) => {
     (userId) => {
       setAdminState({ userId });
       window.localStorage.setItem(loggedInAdminIdKey, userId);
-      console.log("adminLogin");
     },
     [setAdminState]
   );

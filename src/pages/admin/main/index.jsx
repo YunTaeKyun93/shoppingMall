@@ -1,7 +1,10 @@
 import React from 'react';
-
+import { Row, Col } from 'react-bootstrap';
+import AdminHeader from '../../../components/AdminHeader';
 const AdminMainPage = () => {
-    return <div>어드민 메인 페이지</div>;
+    return <div>
+        <AdminHeader />
+    </div>;
 };
 
 export default AdminMainPage;

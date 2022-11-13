@@ -11,7 +11,7 @@ import SignInPage from "../pages/sign-in";
 import AdminMainPage from "../pages/admin/main";
 import AdminManageCouponsPage from "../pages/admin/manage-coupons";
 import AdminCreateCouponPage from "../pages/admin/create-coupon";
-
+import AdminCouponDetail from '../pages/admin/coupon-detail';
 const storageName = "db";
 const initialDb = {
   users: [],
@@ -41,7 +41,8 @@ const AppProvider = ({ contexts, children }) =>
 
 const App = () => {
   const logic = useLogic();
-
+  const db = JSON.parse(window.localStorage.getItem('db'));
+  const coupons = db.coupons;
   return (
     <AppProvider contexts={[AuthProvider]}>
       <Routes>
@@ -50,11 +51,9 @@ const App = () => {
         <Route path="sign-up" element={<SignUpPage />} />
         <Route path="sign-in" element={<SignInPage />} />
         <Route path="admin" element={<AdminMainPage />} />
-        <Route
-          path="admin/manage-coupons"
-          element={<AdminManageCouponsPage />}
-        />
+        <Route path="admin/manage-coupons" element={<AdminManageCouponsPage />} />
         <Route path="admin/create-coupon" element={<AdminCreateCouponPage />} />
+        <Route path={`admin/coupon-detail/${coupons.serialNum}`} element={<AdminCouponDetail/>}/>
       </Routes>
     </AppProvider>
   );

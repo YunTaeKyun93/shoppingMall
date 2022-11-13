@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import useCreateCoupon from '../../../../services/create-coupon';
 const useLogic = () => {
     const navigate = useNavigate();
+    const createCoupon = useCreateCoupon();
     const [name, setName] = useState(null);
     const [pointAmount, setPointAmount] = useState("");
     const [usageStatus, setUsageSatus] = useState(false);
-     const [usedDate, setUsedDate] = useState(null);
-    const createCoupon = useCreateCoupon();
+    const [usedDate, setUsedDate] = useState(null);
+    let serialNum = 0;
 
     const createIssueDate = () => {
         const today = new Date()
@@ -20,9 +21,10 @@ const useLogic = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        createCoupon({ name, pointAmount: Number(pointAmount), issueDate: createIssueDate(), usageStatus, usedDate, });
+        serialNum += 1;
+        createCoupon({ name, pointAmount: Number(pointAmount), issueDate: createIssueDate(), usageStatus, usedDate, serialNum });
         alert('쿠폰이 발행 되었습니다.');
-        navigate('/admin/manage-coupons')
+        navigate('/admin/manage-coupons');
     }
 
 
@@ -31,7 +33,8 @@ const useLogic = () => {
         setName,
         pointAmount,
         setPointAmount,
-        onSubmit
+        onSubmit,
+
     }
 }
 

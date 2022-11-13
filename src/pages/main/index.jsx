@@ -2,7 +2,6 @@ import React from "react";
 import MainPage from "../../components/main-page";
 import Header from "../../components/header";
 import useAuth from "../../services/auth";
-import AdminHeader from "./../../components/AdminHeader";
 import AdminMainPage from "./../admin/main/index";
 
 const MainPagePage = () => {
@@ -16,12 +15,7 @@ const MainPagePage = () => {
           <Header /> <MainPage />
         </>
       )}
-      {auth.isAdminLoggedIn && (
-        <>
-          <AdminHeader />
-          <AdminMainPage />
-        </>
-      )}
+      {auth.isAdminLoggedIn && <AdminMainPage />}
     </div>
   );
 };
