@@ -20,9 +20,11 @@ const initialDb = {
       id: "admin5495",
       email: "admin5495@admin",
       name: "adminYun",
-      password: "q1w2e3r4"
+      password: "ytk5495"
     }
-  ]
+  ],
+  coupons: [],
+  products: [],
 };
 if (window.localStorage.getItem(storageName) == null) {
   window.localStorage.setItem(storageName, JSON.stringify(initialDb));
