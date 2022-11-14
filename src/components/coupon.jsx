@@ -15,10 +15,7 @@ const Coupon = () => {
   return (
     <Row>
       <Col lg={12} className="my-3">
-        <Button onClick={() => navigate("/admin/create-coupon")}>
-     
-          쿠폰 발급하기
-        </Button>
+      
       </Col>
       {coupons
         .sort((a, b) => b - a)

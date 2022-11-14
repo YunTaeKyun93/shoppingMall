@@ -16,7 +16,7 @@ const AdminHeader = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link onClick={()=>navigate('/admin/create-coupon')}>쿠폰발급</Nav.Link>
-            <Nav.Link href="#pricing">null</Nav.Link>
+            <Nav.Link  onClick={()=>navigate('/admin/manage-coupons')}>쿠폰관리</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link onClick={() => auth.logout()}>로그아웃</Nav.Link>
