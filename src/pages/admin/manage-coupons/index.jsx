@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import AdminHeader from '../../../components/AdminHeader';
-import Coupon from '../../../components/Coupon';
+import Coupon from '../../../components/coupon';
 
 const AdminManageCouponsPage = () => {
     return (

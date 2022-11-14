@@ -4,8 +4,6 @@ import useLogin from '../../../services/login';
 import UserNotFoundByEmailError from '../../../errors/user-not-found-by-email';
 import IncorrectPasswordError from '../../../errors/incorrect-password';
 
-
-
 const useLogic = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
