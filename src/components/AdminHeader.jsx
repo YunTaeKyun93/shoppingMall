@@ -9,14 +9,24 @@ const AdminHeader = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand onClick={() => navigate("/")}>
+        <Navbar.Brand onClick={() => navigate("/admin")}>
           Administrator mode
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link onClick={()=>navigate('/admin/create-coupon')}>쿠폰발급</Nav.Link>
-            <Nav.Link  onClick={()=>navigate('/admin/manage-coupons')}>쿠폰관리</Nav.Link>
+            <Nav.Link onClick={() => navigate("/admin/create-coupon")}>
+              쿠폰발급
+            </Nav.Link>
+            <Nav.Link onClick={() => navigate("/admin/manage-coupons")}>
+              쿠폰관리
+            </Nav.Link>
+            <Nav.Link onClick={() => navigate("/admin/create-product")}>
+              상품등록
+            </Nav.Link>
+            <Nav.Link onClick={() => navigate("/admin/manage-product")}>
+              상품관리
+            </Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link onClick={() => auth.logout()}>로그아웃</Nav.Link>

@@ -3,14 +3,20 @@ import AdminHeader from "../../../components/AdminHeader";
 import { Card, Button, Row, Col, Badge, Container } from "react-bootstrap";
 
 const CouponDetailPage = () => {
-  const { serialNum } = useParams();
+  const { id } = useParams();
   const db = JSON.parse(window.localStorage.getItem("db"));
   const coupons = db.coupons;
-  const currentCoupon = coupons.find((coupon)=>{return coupon.serialNum == serialNum })
-  // 나중에 시리얼넘버 해결하면 이걸로 교체할 것 
+  const currentCoupon = coupons.find((coupon) => {
+    return coupon.id == id;
+  });
+
+  if (currentCoupon == null) {
+    return <div>쿠폰을 찾을 수 없습니다.</div>;
+  }
+  // 나중에 시리얼넘버 해결하면 이걸로 교체할 것
   // 이유 => 만약 관리페이지에서 정렬기능을 넣으면 로컬 스토리지 순서도 바뀐다면??
   // 원하는 페이지가 안나올수도?? 지금은 index값을 햇기 때문에 무조건 순서가 바뀜
-  console.log(coupons);
+
   return (
     <div>
       <AdminHeader />
@@ -18,9 +24,14 @@ const CouponDetailPage = () => {
         <Card style={{ width: "1000px" }} className="my-5">
           <Card.Header>
             Coupon Info
-            {coupons[serialNum]?.usedDate && (
+            {currentCoupon.usedDate && (
               <Button variant="danger" style={{ float: "right" }}>
                 Delete
+              </Button>
+            )}
+            {!currentCoupon.usedDate && (
+              <Button variant="success" disabled style={{ float: "right" }}>
+                Disable
               </Button>
             )}
           </Card.Header>
@@ -34,29 +45,29 @@ const CouponDetailPage = () => {
                 />
               </Col>
               <Col lg={8}>
-                <Card.Title>Coupon Name: {coupons[serialNum].name}</Card.Title>
-                {/* <Card.Text>Ponit Amout :  {coupons[serialNum]}.pointAmount</Card.Text> */}
+                <Card.Title>Coupon Name: {currentCoupon.name}</Card.Title>
+                <Card.Text>Ponit Amout : {currentCoupon.pointAmount}</Card.Text>
                 <Card.Text>
                   Usage status:
-                  {coupons[serialNum].usageStatus && (
+                  {currentCoupon.usageStatus && (
                     <Badge bg="danger" className="mx-2">
                       사용 불가능
                     </Badge>
                   )}
-                  {!coupons[serialNum].usageStatus && (
+                  {!currentCoupon.usageStatus && (
                     <Badge bg="primary" className="mx-2">
                       사용 가능
                     </Badge>
                   )}
                 </Card.Text>
-                {/* <Card.Text>Issue Date: {coupons[serialNum]}.issueDate</Card.Text> */}
+                <Card.Text>Issue Date: {currentCoupon.issueDate}</Card.Text>
                 <Card.Text
                   style={{
                     borderBottom: "1px solid gray",
                     marginBottom: "2px"
                   }}
                 >
-                  Used Date: {coupons[serialNum].usedDate}
+                  Used Date: {currentCoupon.usedDate}
                 </Card.Text>
                 <Card.Text>Used User Id: userID</Card.Text>
                 <Card.Text>Used User Db Id: user Db Id</Card.Text>

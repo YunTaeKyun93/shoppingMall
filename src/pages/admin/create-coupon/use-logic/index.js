@@ -8,7 +8,7 @@ const useLogic = () => {
   const [pointAmount, setPointAmount] = useState("");
   const [usageStatus, setUsageSatus] = useState(false);
   const [usedDate, setUsedDate] = useState(null);
-  const [serialNum, setSerialNum] = useState(0);
+  const [isCheckCoupon, setIsCheckCoupon] = useState(false);
 
   const createIssueDate = () => {
     const today = new Date();
@@ -26,8 +26,8 @@ const useLogic = () => {
       pointAmount: Number(pointAmount),
       issueDate: createIssueDate(),
       usageStatus,
-      usedDate,
-    //   serialNum
+      usedDate
+      //   serialNum
     });
     alert("쿠폰이 발행 되었습니다.");
     navigate("/admin/manage-coupons");
@@ -39,8 +39,7 @@ const useLogic = () => {
     pointAmount,
     setPointAmount,
     onSubmit,
-    serialNum,
-    setSerialNum
+    isCheckCoupon
   };
 };
 
