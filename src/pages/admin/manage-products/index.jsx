@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import useLogic from "./use-logic";
 import AdminHeader from "../../../components/AdminHeader";
@@ -8,9 +9,14 @@ import Product from "./../../../components/product";
 
 const AdminManageProductsPage = () => {
   const navigate = useNavigate();
-  const db = JSON.parse(window.localStorage.getItem("db"));
-  const products = db.products;
-  const logic = useLogic(products);
+
+  const logic = useLogic();
+
+  if (logic.isLoading) {
+    return <ClipLoader color="red" loading={logic.isLoading} size={150} />;
+  }
+
+  const products = logic.products;
   return (
     <>
       <AdminHeader />
@@ -25,8 +31,8 @@ const AdminManageProductsPage = () => {
           </Button>
           <Row>
             {products.map((product) => (
-              <Col lg={2}>
-                <Product key={product.serialNum} product={product} />
+              <Col lg={2} key={product.id}>
+                <Product product={product} />
               </Col>
             ))}
           </Row>

@@ -1,36 +1,45 @@
 import { useNavigate, useParams } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
+import { Card, Button, Row, Col, Container } from "react-bootstrap";
+
+import useLogic from "./use-logic";
 import AdminHeader from "../../../components/AdminHeader";
-import {
-  Card,
-  Button,
-  Row,
-  Col,
-  Badge,
-  Container,
-  Dropdown
-} from "react-bootstrap";
+
 const ProductDetailPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const db = JSON.parse(window.localStorage.getItem("db"));
-  const products = db.products;
+  const logic = useLogic();
+
+  if (logic.isLoading) {
+    return <ClipLoader color="red" loading={logic.isLoading} size={150} />;
+  }
+  const products = logic.products;
+
   const currentProduct = products.find((product) => {
     return product.id == id;
   });
+
   if (currentProduct == null) {
     return <h1>해당 상품을 찾을 수 없습니다.</h1>;
   }
+
   return (
     <div>
       <AdminHeader />
       <Container>
         <Card style={{ width: "1000px" }} className="my-5">
-          <Card.Header>
+          <Card.Header
+            style={{
+              background: "royalblue",
+              color: "white",
+              fontSize: "18px"
+            }}
+          >
             Product Info
             <Button
-              variant="danger"
+              variant="light"
               style={{ float: "right" }}
-              onClick={() => navigate("/admin/product-detail/:id/modification")}
+              onClick={() => navigate(`/admin/product-detail/${id}/modification`)}
             >
               Modification
             </Button>

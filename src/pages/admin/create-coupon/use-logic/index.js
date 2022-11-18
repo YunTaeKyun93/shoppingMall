@@ -27,7 +27,6 @@ const useLogic = () => {
       issueDate: createIssueDate(),
       usageStatus,
       usedDate
-      //   serialNum
     });
     alert("쿠폰이 발행 되었습니다.");
     navigate("/admin/manage-coupons");

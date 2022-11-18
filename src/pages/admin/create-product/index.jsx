@@ -19,7 +19,7 @@ const CreateProductPage = () => {
         <h3>상품등록</h3>
         <Form className="my-3">
           <Form.Group className="mb-3">
-            {/* 드로그 앤 드롭으로 해보고 싶음 */}
+            드로그 앤 드롭으로 해보고 싶음
             <Form.Label>Product Image Url</Form.Label>
             <Form.Control
               type="text"
@@ -71,7 +71,7 @@ const CreateProductPage = () => {
             variant="light"
             type="submit"
             className="mb-3"
-            onClick={() => logic.onSubmit()}
+            onClick={logic.onSubmit}
           >
             상품등록
           </Button>

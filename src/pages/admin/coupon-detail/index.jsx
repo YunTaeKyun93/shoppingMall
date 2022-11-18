@@ -30,8 +30,8 @@ const CouponDetailPage = () => {
               </Button>
             )}
             {!currentCoupon.usedDate && (
-              <Button variant="success" disabled style={{ float: "right" }}>
-                Disable
+              <Button  variant="danger" disabled style={{ float: "right" }}>
+                Delete
               </Button>
             )}
           </Card.Header>
@@ -50,12 +50,12 @@ const CouponDetailPage = () => {
                 <Card.Text>
                   Usage status:
                   {currentCoupon.usageStatus && (
-                    <Badge bg="danger" className="mx-2">
+                    <Badge bg="warning" className="mx-2">
                       사용 불가능
                     </Badge>
                   )}
                   {!currentCoupon.usageStatus && (
-                    <Badge bg="primary" className="mx-2">
+                    <Badge bg="success " className="mx-2">
                       사용 가능
                     </Badge>
                   )}
