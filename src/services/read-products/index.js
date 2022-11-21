@@ -1,5 +1,9 @@
+import useLocalStorageName from '../local-storage-name';
+
+
 const useReadProducts = () => {
-    const localStorageName = "db";
+  const localStorageName = useLocalStorageName();
+
     return async () => {
       const getDb = new Promise((resolve, reject) => {
         const db = JSON.parse(window.localStorage.getItem(localStorageName));

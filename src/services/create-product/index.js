@@ -1,8 +1,10 @@
-const storageName = "db";
+import useLocalStorageName from '../local-storage-name';
 
 const useCreateProduct = () => {
+  const localStorageName = useLocalStorageName();
+
   return ({ name, description, imageUrl, price, issueDate }) => {
-    const db = JSON.parse(window.localStorage.getItem(storageName));
+    const db = JSON.parse(window.localStorage.getItem(localStorageName));
     const serialNum = Math.random().toString(36).substring(2, 12);
 
     db.products.push({
@@ -13,7 +15,7 @@ const useCreateProduct = () => {
       price,
       issueDate
     });
-    window.localStorage.setItem(storageName, JSON.stringify(db));
+    window.localStorage.setItem(localStorageName, JSON.stringify(db));
   };
 };
 export default useCreateProduct;

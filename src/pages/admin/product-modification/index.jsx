@@ -7,17 +7,17 @@ import useLogic from "./use-logic";
 import AdminHeader from "../../../components/AdminHeader";
 
 const ProductModificationPage = () => {
-  const { id } = useParams();
   const logic = useLogic();
+  const { id } = logic;
 
   if (logic.isLoading) {
     return <ClipLoader color="red" loading={logic.isLoading} size={150} />;
   }
-  const products = logic.products;
+  const { product: currentProduct } = logic;
 
-  const currentProduct = products.find((product) => {
-    return product.id == id;
-  });
+  // const currentProduct = products.find((product) => {
+  //   return product.id == id;
+  // });
   return (
     <div>
       <AdminHeader />
@@ -46,16 +46,20 @@ const ProductModificationPage = () => {
                   Product Name: {currentProduct.name}
                   <input
                     type="text"
-                    onChange={(event) => logic.changeValue(logic.setName(event.target.value))}
+                    onChange={(event) => logic.setName(event.target.value)}
                   />
-                 
+                  <input
+                    type="button"
+                    value="수정하기"
+                    onClick={logic.updateName}
+                  />
                 </Card.Title>
                 <Card.Text>Product Image : {currentProduct.imageUrl}</Card.Text>
                 <Card.Text>Price : {currentProduct.price}</Card.Text>
                 <Card.Text>
                   Product Description : {currentProduct.description}
                 </Card.Text>
-                <button onClick={()=>logic.updateValue()}>수정하기</button>
+                <button onClick={() => logic.updateValue()}>수정하기</button>
               </Col>
             </Row>
           </Card.Body>

@@ -1,8 +1,12 @@
 import React from 'react'
+import Coupon from './coupon';
+
 
 const MainPage = () => {
   return (
-    <div>MainPage111</div>
+    <div>
+      <Coupon/>
+    </div>
   )
 }
 

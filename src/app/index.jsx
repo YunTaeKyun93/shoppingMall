@@ -1,6 +1,5 @@
 import React, { createElement } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import useLogic from "./use-logic";
 import AuthProvider from "../providers/auth";
 
 import MainPage from "../pages/main";

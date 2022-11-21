@@ -8,7 +8,6 @@ import Coupon from "../../../components/coupon";
 import { useNavigate } from "react-router-dom";
 import useLogic from "./use-logic";
 
-
 const CheckBoxCon = styled.div`
   width: 18rem;
   height: 25px;
@@ -48,8 +47,6 @@ const AdminManageCouponsPage = () => {
   //   coupons.map((currentCoupon) => logic.isCouponChecked(currentCoupon.id))
   // );
 
-
-
   return (
     <div>
       <AdminHeader />
@@ -62,19 +59,14 @@ const AdminManageCouponsPage = () => {
           >
             쿠폰 발급하기
           </Button>
-          {/* <Button
-            variant="outline-secondary"
-            onClick={() => logic.sortCuponList()}
-          >
-            정렬하기
-          </Button>
+
           <Button
             variant="outline-danger"
             className="mx-2"
-            onClick={() => logic.sortCuponList()}
+            onClick={() => logic.deleteCheckedCoupons(coupons)}
           >
             삭제하기
-          </Button> */}
+          </Button>
         </Col>
       </Row>
 
