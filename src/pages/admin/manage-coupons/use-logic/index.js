@@ -4,7 +4,7 @@ import useReadCoupons from "../../../../services/read-coupons";
 import useDeleteCoupons from "../../../../services/delete-coupons";
 import useIsCouponUsed from "../../../../services/is-coupon-used";
 import useCheckIsCouponNotDeleted from "../../../../services/check-is-coupon-not-deleted";
-import useDeleteCheckedCoupons from "../../../../services/delete-checked-coupons";
+// import useDeleteCheckedCoupons from "../../../../services/delete-checked-coupons";
 const sortFn = (a, b) => {
   // return b.name.localeCompare(a.name);
   return new Date(b.issueDate).valueOf() - new Date(a.issueDate).valueOf();
@@ -13,8 +13,7 @@ const sortFn = (a, b) => {
 const useLogic = () => {
   const readCoupons = useReadCoupons();
   const deleteCoupons = useDeleteCoupons();
-  // const checkIsCouponNotDeleted = useCheckIsCouponNotDeleted();
-  const deleteCheckedCoupons = useDeleteCheckedCoupons();
+  // const deleteCheckedCoupons = useDeleteCheckedCoupons();
   const [coupons, setCoupons] = useState(undefined);
   const [isCouponsChecked, setIsCouponsChecked] = useState({});
 
@@ -55,7 +54,37 @@ const useLogic = () => {
     // );
   };
 
+  // 1. 현재 체크된 쿠폰아이디를 들고온다(삭제버튼을 누른 시점 * 최종 *)
+  // 2. 체크된 쿠폰아이디의 사용상태가 사용 전이면 삭제 안됨 
+    // 체크된 쿠폰아이디 중 사용상태가 사용 전인것이 하나라도 있으면 삭제과정을 중단하고 alert를 띄워줘야 한다.
+  // 3. 체크된 쿠폰아이디의 사용상태가 사용 후면 삭제 됨 // 신경 쓸 필요가 없음.
+  // 4. db 로드 
+  // 5. db 삭제
+  // 6. db 저장
 
+  const getSelectedCouponIds = () => {
+    return Object.entries(isCouponsChecked)
+      .filter(
+        ([_, value]) => value
+      )
+      .map(
+        ([key, _]) => key
+      );
+  };
+
+  const deleteCheckedCoupons = async () => {
+    try {
+      const deleteTargetCouponIds = getSelectedCouponIds();
+
+      await deleteCoupons(deleteTargetCouponIds);  
+    } catch (error) {
+      // TODO 에러 처리가 필요한 경우 여기에서 처리할 것
+
+      console.error(error);
+      alert('알 수 없는 에러가 발생했습니다.');
+      throw error;
+    }
+  };
 
   // const deleteCheckedCoupons = async () => {
   //   // 체크한 모든 쿠폰이 아직 사용되기 전인지 확인할 것

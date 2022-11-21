@@ -3,6 +3,7 @@ const storageName = "db";
 const useCreateCoupon = () => {
   return ({ name, pointAmount, issueDate, usageStatus, usedDate,isCheckCoupon }) => {
     const db = JSON.parse(window.localStorage.getItem(storageName));
+  
     const serialNum = Math.random().toString(36).substring(2, 12);
 
     db.coupons.push({
@@ -15,6 +16,7 @@ const useCreateCoupon = () => {
       serialNum,
       isCheckCoupon,
     });
+
     window.localStorage.setItem(storageName, JSON.stringify(db));
   };
 };
