@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Card, Row, Col, Container } from "react-bootstrap";
-
 import useLogic from "./use-logic";
 import AdminHeader from "../../../components/AdminHeader";
 
@@ -54,12 +52,44 @@ const ProductModificationPage = () => {
                     onClick={logic.updateName}
                   />
                 </Card.Title>
-                <Card.Text>Product Image : {currentProduct.imageUrl}</Card.Text>
-                <Card.Text>Price : {currentProduct.price}</Card.Text>
+                <Card.Text>
+                  Product Image : {currentProduct.imageUrl}
+                  <input
+                    type="text"
+                    onChange={(event) => logic.setImageUrl(event.target.value)}
+                  />
+                  <input
+                    type="button"
+                    value="수정하기"
+                    onClick={logic.updateImageUrl}
+                  />
+                </Card.Text>
+                <Card.Text>
+                  Price : {currentProduct.price}
+                  <input
+                    type="text"
+                    onChange={(event) => logic.setPrice(event.target.value)}
+                  />
+                  <input
+                    type="button"
+                    value="수정하기"
+                    onClick={logic.updatePrice}
+                  />
+                </Card.Text>
                 <Card.Text>
                   Product Description : {currentProduct.description}
+                  <input
+                    type="text"
+                    onChange={(event) =>
+                      logic.setDescription(event.target.value)
+                    }
+                  />
+                  <input
+                    type="button"
+                    value="수정하기"
+                    onClick={logic.updateDescription}
+                  />
                 </Card.Text>
-                <button onClick={() => logic.updateValue()}>수정하기</button>
               </Col>
             </Row>
           </Card.Body>

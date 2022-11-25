@@ -6,7 +6,7 @@ const useLogic = () => {
   const createCoupon = useCreateCoupon();
   const [name, setName] = useState(null);
   const [pointAmount, setPointAmount] = useState("");
-  const [usageStatus, setUsageSatus] = useState(false);
+  const [isUsed, setIsUsed] = useState(false);
   const [usedDate, setUsedDate] = useState(null);
   const [isCheckCoupon, setIsCheckCoupon] = useState(false);
 
@@ -25,7 +25,7 @@ const useLogic = () => {
       name,
       pointAmount: Number(pointAmount),
       issueDate: createIssueDate(),
-      usageStatus,
+      isUsed,
       usedDate
     });
     alert("쿠폰이 발행 되었습니다.");

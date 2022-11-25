@@ -4,18 +4,21 @@ const useReadProduct = () => {
     const localStorageName = useLocalStorageName();
 
     return async (id) => {
-        const db = JSON.parse(localStorage.getItem(localStorageName));
-        
-        const products = db.products;
+        const db = JSON.parse(window.localStorage.getItem(localStorageName));
 
-        const product = products.find((currentProduct) => currentProduct.id === id);
+        const result = db.products.find((currentProduct) => currentProduct.id === id);
 
-        if (product == null) {
-            throw new Error('Product를 찾을 수 없습니다.'); // TODO 별도 예외 객체로 분리할 것
+        if (result == null) {
+            throw new Error('쿠폰을 id로 찾을 수 없습니다.');
         }
 
-        return product;
+        // result.issueDate = new Date(result.issueDate);
+        // result.usedDate = new Date(result.usedDate);
+
+        return result;
     };
 };
 
 export default useReadProduct;
+
+        // product.issueDate = new Date(product.issueDate);

@@ -17,14 +17,14 @@ const useLogic = () => {
   const [coupons, setCoupons] = useState(undefined);
   const [isCouponsChecked, setIsCouponsChecked] = useState({});
 
+  const init = async () => {
+    const coupons = await readCoupons();
+    console.log('coupons',coupons)
+    setCoupons(coupons);
+  };
+
   useEffect(() => {
-    const impl = async () => {
-      const coupons = await readCoupons();
-
-      setCoupons(coupons);
-    };
-
-    impl();
+    init();
   }, []);
 
   const isCouponChecked = (couponId) => {
@@ -55,33 +55,30 @@ const useLogic = () => {
   };
 
   // 1. 현재 체크된 쿠폰아이디를 들고온다(삭제버튼을 누른 시점 * 최종 *)
-  // 2. 체크된 쿠폰아이디의 사용상태가 사용 전이면 삭제 안됨 
-    // 체크된 쿠폰아이디 중 사용상태가 사용 전인것이 하나라도 있으면 삭제과정을 중단하고 alert를 띄워줘야 한다.
+  // 2. 체크된 쿠폰아이디의 사용상태가 사용 전이면 삭제 안됨
+  // 체크된 쿠폰아이디 중 사용상태가 사용 전인것이 하나라도 있으면 삭제과정을 중단하고 alert를 띄워줘야 한다.
   // 3. 체크된 쿠폰아이디의 사용상태가 사용 후면 삭제 됨 // 신경 쓸 필요가 없음.
-  // 4. db 로드 
+  // 4. db 로드
   // 5. db 삭제
   // 6. db 저장
 
   const getSelectedCouponIds = () => {
     return Object.entries(isCouponsChecked)
-      .filter(
-        ([_, value]) => value
-      )
-      .map(
-        ([key, _]) => key
-      );
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key);
   };
 
   const deleteCheckedCoupons = async () => {
     try {
       const deleteTargetCouponIds = getSelectedCouponIds();
-
-      await deleteCoupons(deleteTargetCouponIds);  
+      await deleteCoupons(deleteTargetCouponIds);
+      // window.location.reload();
+      init(); // 2번 방법
     } catch (error) {
       // TODO 에러 처리가 필요한 경우 여기에서 처리할 것
 
       console.error(error);
-      alert('알 수 없는 에러가 발생했습니다.');
+      alert("알 수 없는 에러가 발생했습니다.");
       throw error;
     }
   };
@@ -113,7 +110,7 @@ const useLogic = () => {
     isLoading: !coupons,
     isCouponChecked,
     toggleIsCouponChecked,
-    deleteCheckedCoupons,
+    deleteCheckedCoupons
   };
 };
 export default useLogic;
@@ -143,5 +140,22 @@ const toggleIsCouponChecked = (couponId) => {
 };
 
 // ImmutableJS(Set, Map을 불변성)
+
+*/
+
+/*
+1. 삭제한 것을 없애기(GOOD)
+
+const deletedCouponIds = ???;
+const isNotDeleted = (coupon) => !deletedCouponIds.has(coupon.id);
+setCoupons(coupons.filter(isNotDeleted));
+
+2. 다시 로딩하기(BEST)
+
+const coupons = await readCoupons();
+setCoupons(coupons);
+
+3. 새로고침하기(NOT BAD)
+window.location.reload();
 
 */

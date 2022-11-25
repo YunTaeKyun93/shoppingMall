@@ -32,6 +32,12 @@ const useReadCoupons = () => {
       b.issueDate.localeCompare(a.issueDate);
     coupons.sort(sortCouponsByIssuedDateDesc);
 
+    // coupons.forEach((currentCoupon) => { 
+      //오류발생Objects are not valid as a React child (found: [object Date]). If you meant to render a collection of children, use an array instead.
+    //   currentCoupon.issueDate = new Date(currentCoupon.issueDate);
+    //   currentCoupon.usedDate = new Date(currentCoupon.usedDate);
+    // });
+
     // JS Array: 두가지 방식으로 작동하는 함수들
     // , slice
     // 1. 원본을 변경하는 애들: push, pop, concat, splice, sort

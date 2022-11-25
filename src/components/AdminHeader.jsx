@@ -29,7 +29,7 @@ const AdminHeader = () => {
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link onClick={() => auth.logout()}>로그아웃</Nav.Link>
+            <Nav.Link onClick={() => auth.adminLogout()}>로그아웃</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

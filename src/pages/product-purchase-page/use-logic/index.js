@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import useAuth from "../../../../services/auth";
-import useReadProduct from "../../../../services/read-product";
+import useReadProduct from "./../../../services/read-product/index";
+
 const useLogic = () => {
   const { id } = useParams();
-  const readProduct = useReadProduct()
-  const auth = useAuth();
-  const [product, setProduct] = useState(undefined);
+  const readProduct = useReadProduct();
+  const [product, setProduct] = useState(null);
 
   const init = async () => {
     const product = await readProduct(id);
@@ -17,11 +16,10 @@ const useLogic = () => {
     init();
   }, []);
 
-  return {
-    id,
+
+  return{
     product,
-    isLoading: !product,
-    auth
-  };
+    isLoading:!product
+  }
 };
 export default useLogic;

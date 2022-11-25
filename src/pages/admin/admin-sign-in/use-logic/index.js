@@ -28,13 +28,7 @@ const useLogic = () => {
             alert('알 수 없는 에러가 발생하였습니다');
             console.error(error);
 
-            // if(error == userNotFound){
-            //     alert('일치하는 유저가 없습니다')
-            // }else if(error == passwordNotMatch){
-            //     alert('비번이 일치하지 않습니다')
-            // }
-            // alert(error.message);
-            // alert('로그인에 실패했습니다.');
+       
             return;
         }
 

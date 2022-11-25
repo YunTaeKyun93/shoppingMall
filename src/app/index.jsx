@@ -1,11 +1,14 @@
 import React, { createElement } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import AuthProvider from "../providers/auth";
-
 import MainPage from "../pages/main";
 import MyPage from "../pages/my-page";
 import SignUpPage from "../pages/sign-up";
 import SignInPage from "../pages/sign-in";
+import ProductDetailPage from "../pages/product-detail";
+import ProductPurchasePage from "../pages/product-purchase-page";
+import PointRegistraionCheckPage from "../pages/point-registration-check";
+
 
 import AdminMainPage from "../pages/admin/main";
 import AdminManageCouponsPage from "../pages/admin/manage-coupons";
@@ -13,9 +16,11 @@ import AdminCreateCouponPage from "../pages/admin/create-coupon";
 import AdminCouponDetail from "../pages/admin/coupon-detail";
 import AdminCreateProductPage from "./../pages/admin/create-product";
 import AdminManageProductPage from "../pages/admin/manage-products";
-import AdminProductDetail from '../pages/admin/product-detail';
-import AdminProductModification from '../pages/admin/product-modification';
+import AdminProductDetail from "../pages/admin/product-detail";
+import AdminProductModification from "../pages/admin/product-modification";
+
 const storageName = "db";
+
 const initialDb = {
   users: [],
   admins: [
@@ -47,9 +52,12 @@ const App = () => {
     <AppProvider contexts={[AuthProvider]}>
       <Routes>
         <Route exact path="/" element={<MainPage />} />
-        <Route path="my-page" element={<MyPage />} />
+        <Route path="my-page/:id" element={<MyPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
         <Route path="sign-in" element={<SignInPage />} />
+        <Route path="/point-restration-check/:id" element={<PointRegistraionCheckPage/>} />
+        <Route path={`product-detail/:id`} element={<ProductDetailPage />} />
+        <Route path={`product-purchase/:id`} element={<ProductPurchasePage />} />
         <Route path="admin" element={<AdminMainPage />} />
         <Route
           path="admin/manage-coupons"
@@ -72,7 +80,7 @@ const App = () => {
           path={`admin/product-detail/:id`}
           element={<AdminProductDetail />}
         />
-          <Route
+        <Route
           path={`admin/product-detail/:id/modification`}
           element={<AdminProductModification />}
         />

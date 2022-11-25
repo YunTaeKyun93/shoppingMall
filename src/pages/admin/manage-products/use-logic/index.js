@@ -5,15 +5,15 @@ const useLogic = () => {
   const readProducts = useReadProducts();
   const [products, setProducts] = useState(undefined);
 
+  const init = async () => {
+    const products = await readProducts();
+    setProducts(products);
+    // setProducts(products.getProduts);
+  };
+
   useEffect(() => {
-    const impl = async () => {
-      const products = await readProducts();
-      setProducts(products.getProduts);
-    };
-
-    impl();
+    init();
   }, []);
-
 
   return {
     products,

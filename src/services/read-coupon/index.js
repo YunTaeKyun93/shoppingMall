@@ -12,6 +12,9 @@ const useReadCoupon = () => {
             throw new Error('쿠폰을 id로 찾을 수 없습니다.');
         }
 
+        // result.issueDate = new Date(result.issueDate);
+        // result.usedDate = new Date(result.usedDate);
+
         return result;
     };
 };

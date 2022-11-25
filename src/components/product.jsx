@@ -1,10 +1,11 @@
 import React from "react";
-import { Card, ListGroup, Row, Col, Button, Badge } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import useAuth from "../services/auth";
 const Product = ({ product }) => {
   const navigate = useNavigate();
-
+  const auth = useAuth();
+  // console.log(auth.isAdminLoggedIn);
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Img variant="top" src={`${product.imageUrl}`} alt={product.name} />
@@ -18,15 +19,39 @@ const Product = ({ product }) => {
         <ListGroup.Item>Issue Date : {product.issueDate}</ListGroup.Item>
       </ListGroup>
       <Card.Body>
-        <Card.Text
-          style={{ cursor: "pointer" }}
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate(`/admin/product-detail/${product.id}`);
-          }}
-        >
-          상세페이지
-        </Card.Text>
+        {auth.isAdminLoggedIn && (
+          <Card.Text
+            style={{ cursor: "pointer" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/admin/product-detail/${product.id}`);
+            }}
+          >
+            상세페이지
+          </Card.Text>
+        )}
+        {auth.isLoggedIn && (
+          <Card.Text
+            style={{ cursor: "pointer" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/product-detail/${product.id}`);
+            }}
+          >
+            상세페이지
+          </Card.Text>
+        )}
+           {!auth.isLoggedIn && (
+          <Card.Text
+            style={{ cursor: "pointer" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/product-detail/${product.id}`);
+            }}
+          >
+            상세페이지
+          </Card.Text>
+        )}
       </Card.Body>
     </Card>
   );

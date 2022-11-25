@@ -22,17 +22,7 @@ const getDb = async () => JSON.parse(window.localStorage.getItem("db"));
 const AdminManageCouponsPage = () => {
   const navigate = useNavigate();
 
-  // const [db, setDb] = useState(undefined);
 
-  // useEffect(() => {
-  //   const impl = async () => {
-  //     setDb(await getDb());
-  //   };
-
-  //   impl();
-  // }, []);
-
-  // const db = JSON.parse(window.localStorage.getItem("db"));
 
   const logic = useLogic();
 

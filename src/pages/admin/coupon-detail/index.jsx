@@ -1,21 +1,18 @@
-import { useParams } from "react-router-dom";
-import AdminHeader from "../../../components/AdminHeader";
 import { Card, Button, Row, Col, Badge, Container } from "react-bootstrap";
+import ClipLoader from "react-spinners/ClipLoader";
+
+import useLogic from "./use-logic";
+import AdminHeader from "../../../components/AdminHeader";
+
 
 const CouponDetailPage = () => {
-  const { id } = useParams();
-  const db = JSON.parse(window.localStorage.getItem("db"));
-  const coupons = db.coupons;
-  const currentCoupon = coupons.find((coupon) => {
-    return coupon.id == id;
-  });
+  const logic = useLogic();
 
-  if (currentCoupon == null) {
-    return <div>쿠폰을 찾을 수 없습니다.</div>;
+  if (logic.isLoading) {
+    return <ClipLoader color="red" loading={logic.isLoading} size={150} />;
   }
-  // 나중에 시리얼넘버 해결하면 이걸로 교체할 것
-  // 이유 => 만약 관리페이지에서 정렬기능을 넣으면 로컬 스토리지 순서도 바뀐다면??
-  // 원하는 페이지가 안나올수도?? 지금은 index값을 햇기 때문에 무조건 순서가 바뀜
+
+ const currentCoupon = logic.coupon
 
   return (
     <div>
@@ -24,16 +21,16 @@ const CouponDetailPage = () => {
         <Card style={{ width: "1000px" }} className="my-5">
           <Card.Header>
             Coupon Info
-            {currentCoupon.usedDate && (
-              <Button variant="danger" style={{ float: "right" }}>
+            {!currentCoupon.usedDate && (
+              <Button variant="danger" style={{ float: "right" }} onClick={()=>logic.deleteCurrentCoupon()}>
                 Delete
               </Button>
             )}
-            {!currentCoupon.usedDate && (
+            {/* {!currentCoupon.usedDate && (
               <Button  variant="danger" disabled style={{ float: "right" }}>
                 Delete
               </Button>
-            )}
+            )} */}
           </Card.Header>
           <Card.Body>
             <Row>

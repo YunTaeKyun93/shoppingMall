@@ -1,10 +1,12 @@
-import { useState, useMemo, createElement, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/auth";
 
 const loggedInUserIdKey = "logged-in-user";
 const loggedInAdminIdKey = "logged-in-admin";
 
 const AuthProvider = ({ contexts, children }) => {
+  const navigate = useNavigate();
   let initialState;
 
   const loggedInUserId = window.localStorage.getItem(loggedInUserIdKey);
@@ -30,29 +32,37 @@ const AuthProvider = ({ contexts, children }) => {
 
   const [state, setState] = useState(initialState);
   const [adminState, setAdminState] = useState(initialState);
-
   const login = useCallback(
     (userId) => {
       setState({ userId });
       window.localStorage.setItem(loggedInUserIdKey, userId);
+      window.localStorage.removeItem(loggedInAdminIdKey);
+      
     },
     [setState]
   );
 
   const logout = useCallback(() => {
     setState({ userId: null });
-    setAdminState({ adminId: null });
     window.localStorage.removeItem(loggedInUserIdKey);
-    window.localStorage.removeItem(loggedInAdminId);
-  }, [setState, setAdminState]);
+    alert("로그아웃되었습니다.");
+    navigate("/");
+  }, [setState]);
 
   const adminLogin = useCallback(
-    (userId) => {
-      setAdminState({ userId });
-      window.localStorage.setItem(loggedInAdminIdKey, userId);
+    (adminId) => {
+      setAdminState({ adminId });
+      window.localStorage.setItem(loggedInAdminIdKey, adminId);
     },
     [setAdminState]
   );
+
+  const adminLogout = useCallback(() => {
+    setAdminState({ adminId: null });
+    window.localStorage.removeItem(loggedInAdminIdKey);
+    alert("로그아웃되었습니다!!");
+    navigate("/");
+  }, [setAdminState]);
 
   return (
     <AuthContext.Provider
@@ -64,9 +74,12 @@ const AuthProvider = ({ contexts, children }) => {
           adminId: adminState.adminId,
           login,
           logout,
-          adminLogin
+          adminLogin,
+          adminLogout,
+          loggedInUserId
+          
         }),
-        [state, adminState, login, logout, adminLogin]
+        [state, adminState, login, logout, adminLogin, adminLogout]
       )}
     >
       {children}

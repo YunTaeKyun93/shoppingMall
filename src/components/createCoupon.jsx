@@ -40,7 +40,7 @@ const CreateCoupon = ({ logic }) => {
                             className='my-3'
                             onClick={logic.onSubmit}
                             
-                        >Coupon issuance
+                        >Coupon Issuance
                         </Button>
                     </Card.Body>
                 </Card>
