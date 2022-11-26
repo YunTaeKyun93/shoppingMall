@@ -1,5 +1,4 @@
 import useLocalStorageName from "../local-storage-name";
-import useReadUser from "./../read-user/index";
 //t1fu91czzz
 const useUseCoupon = () => {
   const localStorageName = useLocalStorageName();
@@ -9,7 +8,7 @@ const useUseCoupon = () => {
       (coupon) => coupon.serialNum == couponSerialNumber
     );
     const user = db.users.find((user) => user.id == id);
-    // const user = useReadUser(id)
+
 
     const pointAmount = currentCoupon.pointAmount * 1000;
 
@@ -20,6 +19,7 @@ const useUseCoupon = () => {
     user.point += pointAmount;
     currentCoupon.usageStatus = true;
     window.localStorage.setItem(localStorageName, JSON.stringify(db));
+
     // 시리얼 넘버랑 맞는 쿠폰을 찾는다. x
     // 유저의 point에 추가를 직접 해줌? x
     // db를 불러와서 coupons 반복문을 돌려서 파라미터로 오는 시리얼넘버에 매칭되는 해당 쿠폰을찾음x

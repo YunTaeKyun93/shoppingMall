@@ -20,7 +20,7 @@ const Coupon = (coupon) => {
         <ListGroup.Item>
           Ponit Amout : {coupon.pointAmount}
         </ListGroup.Item>
-        <ListGroup.Item>IssueDate : {coupon.issueDate}</ListGroup.Item>
+        <ListGroup.Item>IssueDate : {coupon.issueDate.toLocaleString()}</ListGroup.Item>
         <ListGroup.Item>
           Usage status:
           {coupon.usageStatus && (

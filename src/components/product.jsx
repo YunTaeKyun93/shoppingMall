@@ -13,10 +13,10 @@ const Product = ({ product }) => {
         <Card.Title> Name: {product.name}</Card.Title>
       </Card.Body>
       <ListGroup className="list-group-flush">
-        <ListGroup.Item>Price : {product.price}</ListGroup.Item>
+        <ListGroup.Item>Price : {product.price.toLocaleString()}</ListGroup.Item>
       </ListGroup>
       <ListGroup className="list-group-flush">
-        <ListGroup.Item>Issue Date : {product.issueDate}</ListGroup.Item>
+        <ListGroup.Item>Issue Date : {product.issueDate.toLocaleString()}</ListGroup.Item>
       </ListGroup>
       <Card.Body>
         {auth.isAdminLoggedIn && (

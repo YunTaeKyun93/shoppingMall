@@ -6,7 +6,7 @@ const useReadProducts = () => {
     const db = JSON.parse(window.localStorage.getItem(localStorageName));
     const products = db.products;
 
-    return products
+    // return products;
     // 첫 번째 방법(forEach사용)
     // {
     //   products.forEach((currentProduct) => {
@@ -19,14 +19,14 @@ const useReadProducts = () => {
 
     // 두 번째 방법(map사용)
 
-    // const issueDateMappedProducts = products.map((currentProduct) => {
-    //   return {
-    //     ...currentProduct,
-    //     issueDate: new Date(currentProduct.issueDate)
-    //   };
-    // });
+    const issueDateMappedProducts = products.map((currentProduct) => {
+      return {
+        ...currentProduct,
+        issueDate: new Date(currentProduct.issueDate)
+      };
+    });
 
-    // return issueDateMappedProducts;
+    return issueDateMappedProducts;
 
     // const product = products.map((currentProduct)=>currentProduct.)
     // products.issueDate = new Date(products.issueDate )

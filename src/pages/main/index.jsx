@@ -16,9 +16,9 @@ const MainPagePage = () => {
   const products = logic.products;
   return (
     <div>
-      {!auth.isLoggedIn && !auth.isAdminLoggedIn && <Header />}
-      {auth.isLoggedIn && <Header />}
-
+      {/* {!auth.isLoggedIn && !auth.isAdminLoggedIn && <Header />}
+      {auth.isLoggedIn && <Header />} */}
+      <Header />
       <Row>
         {products.map((product) => (
           <Col lg={2} key={product.id}>

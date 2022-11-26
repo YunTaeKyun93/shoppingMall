@@ -16,7 +16,7 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link onClick={() => navigate(`/point-restration-check/${id}`)}>
+            <Nav.Link onClick={() => navigate(`/point-restration-check/`)}>
               Point
             </Nav.Link>
             <Nav.Link href="#pricing">null</Nav.Link>
