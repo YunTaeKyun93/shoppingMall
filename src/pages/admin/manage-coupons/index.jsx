@@ -31,7 +31,7 @@ const AdminManageCouponsPage = () => {
   }
 
   const coupons = logic.coupons;
-
+  console.log(coupons,'coupons')
   // console.log(
   //   "COUPONS: ",
   //   coupons.map((currentCoupon) => logic.isCouponChecked(currentCoupon.id))

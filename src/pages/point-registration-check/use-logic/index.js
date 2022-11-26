@@ -27,6 +27,7 @@ const useLogic = () => {
 
   const onSubmit = () => {
     registrationCoupon(serialNumber, id);
+    init();
   };
 
   return {
