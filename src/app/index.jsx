@@ -8,7 +8,8 @@ import SignInPage from "../pages/sign-in";
 import ProductDetailPage from "../pages/product-detail";
 import ProductPurchasePage from "../pages/product-purchase-page";
 import PointRegistraionCheckPage from "../pages/point-registration-check";
-
+import StorageBoxPage from "../pages/storage-box";
+// import ProductPurchaseDetailPage from "../pages/product-purchase-detail";
 
 import AdminMainPage from "../pages/admin/main";
 import AdminManageCouponsPage from "../pages/admin/manage-coupons";
@@ -55,9 +56,12 @@ const App = () => {
         <Route path="my-page/:id" element={<MyPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
         <Route path="sign-in" element={<SignInPage />} />
-        <Route path="/point-restration-check" element={<PointRegistraionCheckPage/>} />
+        <Route path="point-restration-check" element={<PointRegistraionCheckPage/>} />
+        <Route path='storage-box' element={<StorageBoxPage/>}  />
         <Route path={`product-detail/:id`} element={<ProductDetailPage />} />
         <Route path={`product-purchase/:id`} element={<ProductPurchasePage />} />
+        {/* <Route path={`product-purchase-detail`} element={<ProductPurchaseDetailPage />} /> */}
+
         <Route path="admin" element={<AdminMainPage />} />
         <Route
           path="admin/manage-coupons"

@@ -7,7 +7,7 @@ import useUseCoupon from "../../../services/use-coupon";
 import useAuth from "../../../services/auth";
 const useLogic = () => {
   const auth = useAuth();
-  const id = auth.userId;
+  const id = auth.loggedInUserId;
   const [user, setUser] = useState(null);
   const [coupons, setCoupons] = useState(null);
   const [coupon, setCoupon] = useState(null);

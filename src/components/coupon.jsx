@@ -20,7 +20,7 @@ const Coupon = (coupon) => {
       <ListGroup className="list-group-flush">
         <ListGroup.Item>Coupon Id : {currentCoupon.id}</ListGroup.Item>
         <ListGroup.Item>
-          Ponit Amout : {currentCoupon.pointAmount}
+          Ponit Amout : {currentCoupon.pointAmount.toLocaleString()}
         </ListGroup.Item>
         <ListGroup.Item>IssueDate : {currentCoupon.issueDate.toLocaleString()}</ListGroup.Item>
 

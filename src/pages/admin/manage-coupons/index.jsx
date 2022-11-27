@@ -16,7 +16,6 @@ const CheckBoxCon = styled.div`
   border-top: none;
 `;
 
-const getDb = async () => JSON.parse(window.localStorage.getItem("db"));
 // window.localStorage.getItem
 
 const AdminManageCouponsPage = () => {
@@ -31,7 +30,7 @@ const AdminManageCouponsPage = () => {
   }
 
   const coupons = logic.coupons;
-  console.log(coupons,'coupons')
+
   // console.log(
   //   "COUPONS: ",
   //   coupons.map((currentCoupon) => logic.isCouponChecked(currentCoupon.id))

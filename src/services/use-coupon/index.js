@@ -12,7 +12,7 @@ const useUseCoupon = () => {
 
     const pointAmount = currentCoupon.pointAmount * 1000;
 
-    if (currentCoupon.usageStatus) {
+    if (currentCoupon.isUsed) {
       throw new Error("사용된 쿠폰입니다!!");
     }
 

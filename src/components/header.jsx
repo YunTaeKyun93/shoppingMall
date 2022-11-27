@@ -19,7 +19,9 @@ const Header = () => {
             <Nav.Link onClick={() => navigate(`/point-restration-check/`)}>
               Point
             </Nav.Link>
-            <Nav.Link href="#pricing">null</Nav.Link>
+            <Nav.Link onClick={()=>navigate('/storage-box')}>Storage Box</Nav.Link>
+            <Nav.Link onClick={()=>navigate('/product-purchase-detail')}>Product Purchace Detail</Nav.Link>
+
           </Nav>
           <Nav>
             {auth.isLoggedIn && (

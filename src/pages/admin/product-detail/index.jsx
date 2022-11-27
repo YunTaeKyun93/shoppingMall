@@ -55,8 +55,8 @@ const ProductDetailPage = () => {
               <Col lg={8}>
                 <Card.Title>Product Name: {currentProduct.name}</Card.Title>
                 <Card.Text>Product Id : {currentProduct.id}</Card.Text>
-                <Card.Text>Price : {currentProduct.price}</Card.Text>
-                <Card.Text>Issue Date: {currentProduct.issueDate}</Card.Text>
+                <Card.Text>Price : {currentProduct.price.toLocaleString()}</Card.Text>
+                <Card.Text>Issue Date: {currentProduct.issueDate.toLocaleString()}</Card.Text>
                 <Card.Text>
                   Product Description : {currentProduct.description}
                 </Card.Text>

@@ -19,13 +19,17 @@ const useLogic = () => {
     setProduct(product);
     setUser(user);
   };
-
-  const onSubmit = () => {
-     buyProduct(product.id)
-  };
   useEffect(() => {
     init();
   }, []);
+
+  
+  const onSubmit = () => {
+     buyProduct(product.id);
+     alert('상품이 구매되었습니다.');
+     init();
+  };
+
 
   return {
     product,
