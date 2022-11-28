@@ -19,7 +19,7 @@ const useUseCoupon = () => {
     user.point += pointAmount;
     currentCoupon.isUsed = true;
     window.localStorage.setItem(localStorageName, JSON.stringify(db));
-    alert(`쿠폰이 등록되었습니다.${pointAmount}점`)
+    alert(`쿠폰이 등록되었습니다.${pointAmount}점`);
     // 시리얼 넘버랑 맞는 쿠폰을 찾는다. x
     // 유저의 point에 추가를 직접 해줌? x
     // db를 불러와서 coupons 반복문을 돌려서 파라미터로 오는 시리얼넘버에 매칭되는 해당 쿠폰을찾음x

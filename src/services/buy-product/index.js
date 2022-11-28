@@ -1,17 +1,27 @@
 import useAuth from "../auth";
-import UseReadUser from "../read-user";
-import UseReadProduct from "../read-product";
+import useReadUser from "../read-user";
+import useReadProduct from "../read-product";
 import useLocalStorageName from "./../local-storage-name";
 // Input: productId, userId
 // Output(or Side Effect):
-
+// const createIssueDate = () => {
+//   const today = new Date();
+//   let year = today.getFullYear();
+//   let month = today.getMonth() + 1;
+//   let day = today.getDate();
+//   const purchaseDate = year + "-" + month + "-" + day;
+//   return purchaseDate;
+// };
 const useBuyProduct = () => {
   const auth = useAuth();
   const localStroageName = useLocalStorageName();
+  const readUser = useReadUser();
+  const readProduct = useReadProduct();
   return async (productId) => {
     const userId = auth.loggedInUserId;
-    const readUser = UseReadUser();
-    const readProduct = UseReadProduct();
+
+    // const user = await readUser(userId);
+    // const product = await readProduct(productId);
     const db = JSON.parse(window.localStorage.getItem(localStroageName));
     const createIssueDate = () => {
       const today = new Date();
@@ -29,17 +39,35 @@ const useBuyProduct = () => {
     const product = db.products.find((product) => product.id === productId);
     // user.items = [];
 
+    console.log("userId", userId);
+    console.log(db.users);
+
+    const user = db.users.find((currentUser) => currentUser.id === userId);
+    const product = db.products.find((product) => product.id === productId);
+
+    console.log(product);
+    // 좋은 코드 아님(좋은 코드: 유저를 만들 때 point를 생성하는 것)
+    // 문제: 이전에 만들었던 유저들
+    if (user.point == null) {
+      user.point = 0;
+    }
     if (user.point < product.price) {
       throw new Error("보유 잔액이 부족합니다.");
     }
     user.point -= product.price;
+
+    if (user.items == null) {
+      user.items = [];
+    }
+
     if (!user.items.some((item) => item.productId === productId)) {
       user.items.push({
         productId,
-        productName: product.name,
+
         count: 0,
         // purchaseDate: purchaseDate(),
-        price: product.price,
+        productName: product.name,
+        price: product.price
       });
     }
 
@@ -47,7 +75,20 @@ const useBuyProduct = () => {
     currentItem.count++;
     window.localStorage.setItem(localStroageName, JSON.stringify(db));
 
+    /*
+    const newUser = {
+      id: uuid(),
+      name,
+      age,
+    };
+
+    const dbWithNewUser = {
+      ...db,
+      users: [...db.users, newUser],
+    };
+    */
     // user.point -= product.price;
+
     // const newUser ={
     //  ...db,
 

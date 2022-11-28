@@ -6,7 +6,7 @@ import AdminHeader from "../../../components/AdminHeader";
 
 const ProductModificationPage = () => {
   const logic = useLogic();
-  const { id } = logic;
+
 
   if (logic.isLoading) {
     return <ClipLoader color="red" loading={logic.isLoading} size={150} />;

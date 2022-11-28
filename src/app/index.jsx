@@ -53,7 +53,7 @@ const App = () => {
     <AppProvider contexts={[AuthProvider]}>
       <Routes>
         <Route exact path="/" element={<MainPage />} />
-        <Route path="my-page/:id" element={<MyPage />} />
+        <Route path="/my-page" element={<MyPage />} />
         <Route path="sign-up" element={<SignUpPage />} />
         <Route path="sign-in" element={<SignInPage />} />
         <Route path="point-restration-check" element={<PointRegistraionCheckPage/>} />
