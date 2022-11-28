@@ -1,6 +1,6 @@
 import useAuth from "../auth";
-import UseReadUser from "../read-user";
-import UseReadProduct from "../read-product";
+import useReadUser from "../read-user";
+import useReadProduct from "../read-product";
 import useLocalStorageName from "./../local-storage-name";
 // Input: productId, userId
 // Output(or Side Effect):
@@ -9,16 +9,67 @@ const useBuyProduct = () => {
   const auth = useAuth();
   const localStroageName = useLocalStorageName();
   return async (productId) => {
-    const userId = auth.userId;
-    const readUser = UseReadUser();
-    const readProduct = UseReadProduct();
-    const user = await readUser(userId);
-    const product = await readProduct(productId);
+    const userId = auth.loggedInUserId;
+    // const readUser = useReadUser();
+    // const readProduct = useReadProduct();
     const db = JSON.parse(window.localStorage.getItem(localStroageName));
+    const createIssueDate = () => {
+      const today = new Date();
+      let year = today.getFullYear();
+      let month = today.getMonth() + 1;
+      let day = today.getDate();
+      const purchaseDate = year + "-" + month + "-" + day;
+      return purchaseDate;
+    };
+    console.log("userId", userId);
+    console.log(db.users);
+    // const user = await readUser(userId);
+    // const product = await readProduct(productId);
+    const user = db.users.find((currentUser) => currentUser.id === userId);
+    const product = db.products.find((product) => product.id === productId);
+    // user.items = [];
 
     if (user.point < product.price) {
       throw new Error("보유 잔액이 부족합니다.");
     }
+    user.point -= product.price;
+    if (!user.items.some((item) => item.productId === productId)) {
+      user.items.push({
+        productId,
+        productName: product.name,
+        count: 0,
+        // purchaseDate: purchaseDate(),
+        price: product.price,
+      });
+    }
+
+    const currentItem = user.items.find((item) => item.productId === productId);
+    currentItem.count++;
+    window.localStorage.setItem(localStroageName, JSON.stringify(db));
+
+    // user.point -= product.price;
+    // const newUser ={
+    //  ...db,
+
+    //   items:[]
+    // }
+    // console.log(newUser);
+
+    // if(!newUser.items.some((item)=>item.productId === productId)){
+    //   newUser.items.push({productId, count:0});
+    // };
+
+    // const currentItem  = newUser.items.find(item=>item.productId == productId);
+    // console.log(currentItem);
+    // currentItem.count++;
+
+    // window.localStorage.setItem(localStroageName,JSON.stringify(newUser));
+    // if (!user.items.some((item) => item.productId === productId)) {
+    //   newUser.items.push({ productId, count: 0 });
+    // }
+
+    // const currentItem = newUser.items.find((item) => item.productId);
+    // currentItem.count++;
     // db.users.push({
     //   items: { productId, count: 0 }
     // });
@@ -36,13 +87,6 @@ const useBuyProduct = () => {
     //     user.items.push({ productId, count: 1 });
     //   }
     // }
-
-    if (!user.items.some((item) => item.productId === productId)) {
-      user.items.push({ productId, count: 0 });
-    }
-
-    const currentItem = user.items.find((item) => item.productId);
-    currentItem.count++;
 
     // 무언가
     //id: "3ceaf917-276b-416a-98e7-cb340e587c72", email: "123@123", name: "123", password: "123",…}
