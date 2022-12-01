@@ -1,16 +1,25 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import useAuth from "../../../../services/auth";
+import ProductNotFoundByIdError from "../../../../errors/product-not-found-by-id";
 import useReadProduct from "../../../../services/read-product";
+
 const useLogic = () => {
   const { id } = useParams();
   const readProduct = useReadProduct()
-  const auth = useAuth();
+
   const [product, setProduct] = useState(undefined);
 
   const init = async () => {
-    const product = await readProduct(id);
-    setProduct(product);
+    try{
+      const product = await readProduct(id);
+      setProduct(product);
+    }catch(error){
+      if(error instanceof ProductNotFoundByIdError){
+        alert('해당하는 ID를 가진 상품이 없습니다.');
+        return;
+      }
+    }
+   
   };
 
   useEffect(() => {
@@ -21,7 +30,7 @@ const useLogic = () => {
     id,
     product,
     isLoading: !product,
-    auth
+  
   };
 };
 export default useLogic;

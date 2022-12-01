@@ -3,7 +3,7 @@ import UseAuth from "../auth";
 const readItems = () => {
   const auth = UseAuth();
   const localStorageName = UseLocalStorageName();
-  const userId = auth.loggedInUserId;
+  const userId = auth.userId;
   return async () => {
     const db = JSON.parse(window.localStorage.getItem(localStorageName));
     const user = db.users.find((user) => user.id === userId);

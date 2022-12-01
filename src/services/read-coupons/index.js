@@ -28,12 +28,12 @@ const useReadCoupons = () => {
     const { coupons } = db;
     //const coupons = db.coupons
     // 3. Coupons를 정렬한다.
+    
     const sortCouponsByIssuedDateDesc = (a, b) =>
       b.issueDate.localeCompare(a.issueDate);
     coupons.sort(sortCouponsByIssuedDateDesc);
 
     coupons.forEach((currentCoupon) => { 
-    
       currentCoupon.issueDate = new Date(currentCoupon.issueDate);
       currentCoupon.usedDate = new Date(currentCoupon.usedDate);
     });

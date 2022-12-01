@@ -9,7 +9,7 @@ import ProductDetailPage from "../pages/product-detail";
 import ProductPurchasePage from "../pages/product-purchase-page";
 import PointRegistraionCheckPage from "../pages/point-registration-check";
 import StorageBoxPage from "../pages/storage-box";
-// import ProductPurchaseDetailPage from "../pages/product-purchase-detail";
+import PurchaseHistory from '../pages/purchase-history';
 
 import AdminMainPage from "../pages/admin/main";
 import AdminManageCouponsPage from "../pages/admin/manage-coupons";
@@ -60,7 +60,7 @@ const App = () => {
         <Route path='storage-box' element={<StorageBoxPage/>}  />
         <Route path={`product-detail/:id`} element={<ProductDetailPage />} />
         <Route path={`product-purchase/:id`} element={<ProductPurchasePage />} />
-        {/* <Route path={`product-purchase-detail`} element={<ProductPurchaseDetailPage />} /> */}
+        <Route path={`product-purchase-history`} element={<PurchaseHistory />} />
 
         <Route path="admin" element={<AdminMainPage />} />
         <Route

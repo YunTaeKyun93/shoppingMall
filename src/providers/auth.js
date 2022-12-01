@@ -5,39 +5,35 @@ import AuthContext from "../contexts/auth";
 const loggedInUserIdKey = "logged-in-user";
 const loggedInAdminIdKey = "logged-in-admin";
 
-const AuthProvider = ({ contexts, children }) => {
-  const navigate = useNavigate();
-  let initialState;
+const getInitialState = () => {
+  const initialState = {};
 
   const loggedInUserId = window.localStorage.getItem(loggedInUserIdKey);
   if (loggedInUserId != null) {
-    initialState = {
-      userId: loggedInUserId
-    };
+    initialState.userId = loggedInUserId;
   } else {
-    initialState = {
-      userId: null
-    };
+    initialState.userId = null;
   }
   const loggedInAdminId = window.localStorage.getItem(loggedInAdminIdKey);
   if (loggedInAdminId != null) {
-    initialState = {
-      adminId: loggedInAdminId
-    };
+    initialState.adminId = loggedInAdminId;
   } else {
-    initialState = {
-      adminId: null
-    };
+    initialState.adminId = null;
   }
 
-  const [state, setState] = useState(initialState);
-  const [adminState, setAdminState] = useState(initialState);
+  return initialState;
+};
+
+const AuthProvider = ({ contexts, children }) => {
+  const navigate = useNavigate();
+
+  const [state, setState] = useState(getInitialState());
+
   const login = useCallback(
     (userId) => {
       setState({ userId });
       window.localStorage.setItem(loggedInUserIdKey, userId);
       window.localStorage.removeItem(loggedInAdminIdKey);
-      
     },
     [setState]
   );
@@ -47,39 +43,37 @@ const AuthProvider = ({ contexts, children }) => {
     window.localStorage.removeItem(loggedInUserIdKey);
     alert("로그아웃되었습니다.");
     navigate("/");
-  }, [setState]);
+  }, [setState, navigate]);
 
   const adminLogin = useCallback(
     (adminId) => {
-      setAdminState({ adminId });
+      setState({ ...state, adminId });
       window.localStorage.setItem(loggedInAdminIdKey, adminId);
     },
-    [setAdminState]
+    [setState,state]
   );
 
   const adminLogout = useCallback(() => {
-    setAdminState({ adminId: null });
+    setState({ ...state, adminId: null });
     window.localStorage.removeItem(loggedInAdminIdKey);
     alert("로그아웃되었습니다!!");
     navigate("/");
-  }, [setAdminState]);
+  }, [setState, navigate,state]);
 
   return (
     <AuthContext.Provider
       value={useMemo(
         () => ({
           isLoggedIn: !!state.userId,
-          isAdminLoggedIn: !!adminState.userId,
+          isAdminLoggedIn: !!state.adminId,
           userId: state.userId,
-          adminId: adminState.adminId,
+          adminId: state.adminId,
           login,
           logout,
           adminLogin,
           adminLogout,
-          loggedInUserId
-          
         }),
-        [state, adminState, login, logout, adminLogin, adminLogout]
+        [state, login, logout, adminLogin, adminLogout]
       )}
     >
       {children}

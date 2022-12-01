@@ -1,11 +1,18 @@
 import React from "react";
+import ClipLoader from "react-spinners/ClipLoader";
+
 import Header from "./../../components/header";
 import { Card, ListGroup } from "react-bootstrap";
 import useLogic from "./use-logic";
 
 const MyPage = () => {
   const logic = useLogic();
+
+  if (logic.isLoading) {
+    return <ClipLoader color="red" loading={logic.isLoading} size={150} />;
+  }
   const user = logic.user;
+  
   return (
     <div>
       <Header />
@@ -37,8 +44,7 @@ const MyPage = () => {
             type="text"
             onChange={(event) => logic.setPassword(event.target.value)}
           />
-          <input type="button" value="수정하기" onClick={logic.updateEmail} />
-          <Card.Link href="#">Another Link</Card.Link>
+          <input type="button" value="수정하기" onClick={logic.updatePassword} />
         </Card.Body>
       </Card>
     </div>

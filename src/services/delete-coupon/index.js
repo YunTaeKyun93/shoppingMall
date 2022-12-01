@@ -2,7 +2,7 @@ import useDeleteCoupons from '../delete-coupons';
 
 const useDeleteCoupon = ()=>{
     const deleteCoupons = useDeleteCoupons();
-
+    
     return async (couponId) => {
         await deleteCoupons([couponId]);
     };

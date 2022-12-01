@@ -1,16 +1,12 @@
-// import useCheckIsCouponNotUsed from "../check-is-coupon-not-used";
 import useReadCoupon from "../read-coupon";
 import useLocalStorageName from "../local-storage-name";
 
 const useDeleteCoupons = () => {
-  // const checkIsCouponNotUsed = useCheckIsCouponNotUsed();
   const readCoupon = useReadCoupon();
   const localStorageName = useLocalStorageName();
 
   return async (couponIds) => {
-    console.log("couponIds", couponIds);
     const deleteTargetCoupons = await Promise.all(couponIds.map(readCoupon));
-    console.log("deleteTargetCoupons", deleteTargetCoupons);
     deleteTargetCoupons.forEach((currentCoupon) => {
       if (currentCoupon.isUsed) {
         throw new Error("사용된 쿠폰이 존재합니다.");
@@ -19,7 +15,6 @@ const useDeleteCoupons = () => {
 
     const db = JSON.parse(window.localStorage.getItem(localStorageName));
     const deleteTargetIdSet = new Set(couponIds);
-    console.log("deleteTargetIdSet", deleteTargetIdSet);
 
     // console.log("deleteTargetCoupons", deleteTargetCoupons);
 

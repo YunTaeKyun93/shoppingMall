@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 
 import useDeleteCoupon from "../../../../services/delete-coupon";
 import useReadCoupon from "../../../../services/read-coupon";
+import UsedCouponError from '../../../../errors/used-coupon';
+
 const useLogic = () => {
   const { id } = useParams();
   const readCoupon = useReadCoupon();
@@ -21,12 +23,12 @@ const useLogic = () => {
   const deleteCurrentCoupon = async () => {
     try {
       await deleteCoupon(id);
-      // window.location.reload();
+      
     } catch (error) {
-      // TODO 에러 처리가 필요한 경우 여기에서 처리할 것
-
-      console.error(error);
-      alert("알 수 없는 에러가 발생했습니다.");
+      if(error instanceof UsedCouponError){
+        alert('사용된 쿠폰입니다')
+        return
+      }
       throw error;
     }
   };

@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import useReadCoupons from "../../../../services/read-coupons";
 import useDeleteCoupons from "../../../../services/delete-coupons";
 import useIsCouponUsed from "../../../../services/is-coupon-used";
-import useCheckIsCouponNotDeleted from "../../../../services/check-is-coupon-not-deleted";
-// import useDeleteCheckedCoupons from "../../../../services/delete-checked-coupons";
+import UsedCouponError from "../../../../errors/used-coupon";
 const sortFn = (a, b) => {
   // return b.name.localeCompare(a.name);
   return new Date(b.issueDate).valueOf() - new Date(a.issueDate).valueOf();
@@ -19,7 +18,6 @@ const useLogic = () => {
 
   const init = async () => {
     const coupons = await readCoupons();
-    console.log('coupons',coupons)
     setCoupons(coupons);
   };
 
@@ -77,8 +75,10 @@ const useLogic = () => {
     } catch (error) {
       // TODO 에러 처리가 필요한 경우 여기에서 처리할 것
 
-      console.error(error);
-      alert("알 수 없는 에러가 발생했습니다.");
+      if (error instanceof UsedCouponError) {
+        alert("사용된 쿠폰입니다");
+        return;
+      }
       throw error;
     }
   };

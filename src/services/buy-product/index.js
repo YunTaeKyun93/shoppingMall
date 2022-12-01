@@ -1,7 +1,8 @@
 import useAuth from "../auth";
-import useReadUser from "../read-user";
 import useReadProduct from "../read-product";
 import useLocalStorageName from "./../local-storage-name";
+import useSavePurchaseHistory from "./../save-purchase-history/index";
+
 // Input: productId, userId
 // Output(or Side Effect):
 // const createIssueDate = () => {
@@ -15,42 +16,19 @@ import useLocalStorageName from "./../local-storage-name";
 const useBuyProduct = () => {
   const auth = useAuth();
   const localStroageName = useLocalStorageName();
-  const readUser = useReadUser();
   const readProduct = useReadProduct();
+  const savePurchaseHistory = useSavePurchaseHistory();
   return async (productId) => {
-    const userId = auth.loggedInUserId;
-
-    // const user = await readUser(userId);
-    // const product = await readProduct(productId);
-    const db = JSON.parse(window.localStorage.getItem(localStroageName));
-    const createIssueDate = () => {
-      const today = new Date();
-      let year = today.getFullYear();
-      let month = today.getMonth() + 1;
-      let day = today.getDate();
-      const purchaseDate = year + "-" + month + "-" + day;
-      return purchaseDate;
-    };
-    console.log("userId", userId);
-    console.log(db.users);
-    // const user = await readUser(userId);
-    // const product = await readProduct(productId);
+    const userId = auth.userId;
+    const product = await readProduct(productId);
+    let db = JSON.parse(window.localStorage.getItem(localStroageName));
     const user = db.users.find((currentUser) => currentUser.id === userId);
-    const product = db.products.find((product) => product.id === productId);
-    // user.items = [];
 
-    console.log("userId", userId);
-    console.log(db.users);
-
-    const user = db.users.find((currentUser) => currentUser.id === userId);
-    const product = db.products.find((product) => product.id === productId);
-
-    console.log(product);
     // 좋은 코드 아님(좋은 코드: 유저를 만들 때 point를 생성하는 것)
     // 문제: 이전에 만들었던 유저들
-    if (user.point == null) {
-      user.point = 0;
-    }
+    // if (user.point == null) {
+    //   user.point = 0;
+    // }
     if (user.point < product.price) {
       throw new Error("보유 잔액이 부족합니다.");
     }
@@ -63,29 +41,44 @@ const useBuyProduct = () => {
     if (!user.items.some((item) => item.productId === productId)) {
       user.items.push({
         productId,
-
-        count: 0,
-        // purchaseDate: purchaseDate(),
-        productName: product.name,
-        price: product.price
+        count: 0
       });
     }
 
     const currentItem = user.items.find((item) => item.productId === productId);
     currentItem.count++;
     window.localStorage.setItem(localStroageName, JSON.stringify(db));
+    savePurchaseHistory(product, user);
+
+/*
+const add1AndSaveDb = (value) => {
+  let db = getDb(); // 5
+  db = db + value; // 6
+  setDb(db); // 6저장
+};
+
+
+let db = getDb(); // 5
+
+db = db + 1; // 6
+
+add1AndSaveDb(1); 
+
+setDb(db); // 6저장
+*/
+
 
     /*
-    const newUser = {
-      id: uuid(),
-      name,
-      age,
-    };
+const newUser = {
+  id: uuid(),
+  name,
+  age,
+};
 
-    const dbWithNewUser = {
-      ...db,
-      users: [...db.users, newUser],
-    };
+const dbWithNewUser = {
+  ...db,
+  users: [...db.users, newUser],
+};
     */
     // user.point -= product.price;
 

@@ -3,9 +3,10 @@ import useReadUser from "../../../services/read-user";
 import useReadCoupons from "./../../../services/read-coupons/index";
 import useUseCoupon from "../../../services/use-coupon";
 import useAuth from "../../../services/auth";
+import UsedCouponError from '../../../errors/used-coupon';
 const useLogic = () => {
   const auth = useAuth();
-  const id = auth.loggedInUserId;
+  const id = auth.userId;
   const [user, setUser] = useState(null);
   const [coupons, setCoupons] = useState(null);
   const [serialNumber, setSerialNumber] = useState("");
@@ -29,8 +30,11 @@ const useLogic = () => {
       registrationCoupon(serialNumber, id);
       init();
       
-    }catch{
-
+    }catch(error){
+      if(error instanceof UsedCouponError){
+        alert('사용된 쿠폰입니다')
+        return
+      }
     }
    
   };

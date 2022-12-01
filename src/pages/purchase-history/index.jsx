@@ -1,17 +1,16 @@
 import React from "react";
 import ClipLoader from "react-spinners/ClipLoader";
-
 import { Table } from "react-bootstrap";
 
-import Header from "../../components/header";
 import useLogic from "./use-logic";
-
-const StorageBoxPage = () => {
+import Header from "../../components/header";
+const PurchaseHistoryPage = () => {
   const logic = useLogic();
   if (logic.isLoading) {
     return <ClipLoader color="red" loading={logic.isLoading} size={150} />;
   }
-  const items = logic.items;
+  const purchaseHistory = logic.purchaseHistory;
+
   return (
     <div>
       <Header />
@@ -19,16 +18,19 @@ const StorageBoxPage = () => {
         <tbody>
           <tr>
             <td>#</td>
-            <td>Product Id</td>
             <td>Product Name</td>
-            <td>Count</td>
+            <td>Product price</td>
+            <td>Purchase Date</td>
+            <td>User Balance</td>
           </tr>
-          {items.map((item, index) => (
-            <tr key={item.productId}>
+          {purchaseHistory.map((item, index) => (
+            <tr key={item.productName}>
               <td>{index}</td>
-              <td>{item.productId}</td>
-              <td>product name</td>
-              <td>{item.count}</td>
+              <td>{item.productName}</td>
+              <td>{item.price}</td>
+              <td>{item.purchaseDate}</td>
+              <td>{item.balance}</td>
+
             </tr>
           ))}
         </tbody>
@@ -36,4 +38,5 @@ const StorageBoxPage = () => {
     </div>
   );
 };
-export default StorageBoxPage;
+
+export default PurchaseHistoryPage;

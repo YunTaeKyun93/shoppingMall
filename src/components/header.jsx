@@ -20,7 +20,7 @@ const Header = () => {
               Point
             </Nav.Link>
             <Nav.Link onClick={()=>navigate('/storage-box')}>Storage Box</Nav.Link>
-            <Nav.Link onClick={()=>navigate('/product-purchase-detail')}>Product Purchace Detail</Nav.Link>
+            <Nav.Link onClick={()=>navigate('/product-purchase-history')}>Product Purchace Detail</Nav.Link>
 
           </Nav>
           <Nav>

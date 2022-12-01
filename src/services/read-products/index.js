@@ -20,7 +20,7 @@ const useReadProducts = () => {
     // 두 번째 방법(map사용)
 
     const issueDateMappedProducts = products.map((currentProduct) => {
-      console.log('currentProduct',currentProduct)
+      
       return {
         ...currentProduct,
         issueDate: new Date(currentProduct.issueDate)

@@ -8,17 +8,17 @@ const useLogic = () => {
   const init = async () => {
     const items = await readItems();
     setItems(items);
-    console.log(items)
   };
   useEffect(() => {
     init();
- 
   }, []);
+
   const goToItemDetailPage = (productId) => {
-    navigate(`/product-detail/${productId}`)
+    navigate(`/product-detail/${productId}`);
   };
   return {
     items,
+    isLoading: !items,
     goToItemDetailPage
   };
 };
